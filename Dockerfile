@@ -2,7 +2,7 @@ FROM    python:alpine3.20
 
 WORKDIR /srv/app
 COPY    src/ .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 ENV FLASK_APP=/srv/app/index.py \
     PROMETHEUS_MULTIPROC_DIR=/tmp \
     DB_HOST=backend \
