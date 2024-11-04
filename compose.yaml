@@ -1,0 +1,26 @@
+name: fake-shop
+
+services:
+  app:
+    build: .
+    ports:
+      - 5000:5000
+    environment:
+      DB_PASSWORD_FILE: /run/secrets/POSTGRESQL_PASS
+    secrets:
+      - POSTGRESQL_PASS
+    depends_on:
+      - backend
+
+  backend:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ecommerce
+      POSTGRES_USER: ecommerce
+      POSTGRES_PASSWORD_FILE: /run/secrets/POSTGRESQL_PASS
+    secrets:
+      - POSTGRESQL_PASS
+ 
+secrets:
+  POSTGRESQL_PASS:
+    file: postgresql.pass
